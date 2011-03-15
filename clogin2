@@ -695,6 +695,12 @@ foreach router [lrange $argv $i end] {
     set router [string tolower $router]
     send_user "$router\n"
 
+    # nexus switches automatically enable.
+    if { [string match sn-* $router]} {
+      set autoenable 1;
+      set enable 0;
+    }
+
     # fortinet firewalls automatically enable.
     if { [string match ff-* $router]} {
       set autoenable 1;
