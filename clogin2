@@ -521,6 +521,8 @@ proc run_commands { prompt command } {
             send "\r"
         } elseif [ regexp -- "^fa-.*" "$prompt" ] {
             send "term pager 0\r"
+        } elseif [ regexp -- "^fm-.*" "$prompt" ] {
+            send "term pager 0\r"
         } elseif [ regexp -- ".* Main\#" "$prompt" ] {
             send "\r"
         } else {
