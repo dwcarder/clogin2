@@ -697,22 +697,18 @@ foreach router [lrange $argv $i end] {
     set router [string tolower $router]
     send_user "$router\n"
 
-    # nexus switches automatically enable.
-    if { [string match sn-* $router]} {
-      set autoenable 1;
-      set enable 0;
-    }
+    # adding string match for router type is better handled in .cloginrc
+    # add autoenable rx-* 1
+    # it can be added here with:
+    # if { [string match sn-* $router]} {
+    #       set sshver "-1";
+    #       set autoenable 1;
+    #       set enable 0;
+    # }
 
     # fortinet firewalls automatically enable.
     if { [string match ff-* $router]} {
       set autoenable 1;
-    }
-
-    # wireless devices automatically enable.
-    # I changed /etc/radius/clients to stop this - ejp 5/20/2007
-    if { [string match w-* $router]} {
-      # no longer needed, ejp 5/20/2007
-      # set autoenable 1;
     }
 
     if { [string match l-* $router]} {
@@ -721,19 +717,6 @@ foreach router [lrange $argv $i end] {
         set autoenable 1;
         set enable 0;
     }
-
-# they support v2 now, ejp 1/8/2008
-#   # match fwsm admin context
-#   if {[string match f-* $router]} {
-#     set sshver "-1";
-#   }
-
-# they support v2 now, ejp 1/8/2008
-#   # match fwsm firewall context
-#   if {[string match fx-* $router]} {
-#     set sshver "-1";
-#   } 
-
 
     # Figure out prompt.
     # Since autoenable is off by default, if we have it defined, it
@@ -831,7 +814,8 @@ foreach router [lrange $argv $i end] {
 
     # Figure out connection method
     set cmethod [find method $router]
-    if { "$cmethod" == "" } { set cmethod {{telnet} {ssh}} }
+    # ejp - if { "$cmethod" == "" } { set cmethod {{telnet} {ssh}} }
+    if { "$cmethod" == "" } { set cmethod {{ssh} {telnet}} }
 
     # Login to the router
     if {[login $router $ruser $userpswd $passwd $enapasswd $cmethod $cyphertype]} {
