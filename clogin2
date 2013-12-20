@@ -527,6 +527,7 @@ proc run_commands { prompt command } {
             send "\r"
         } else {
             send "term length 0\r"
+            send "term width 0\r"
         }
         # simply truncating prompt and adding .* fails after the config
         # portion has been done:
@@ -861,6 +862,7 @@ foreach router [lrange $argv $i end] {
             send "set logging session disable\r"
         } else {
             send "term length 0\r"
+            send "term width 0\r"
         }
         expect -re $prompt	{}
         source $sfile
