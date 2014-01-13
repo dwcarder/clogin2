@@ -30,6 +30,9 @@
 # debug 1
 # exp_internal 1
 
+#--- packages
+package require syslog
+
 # Usage line
 set usage "Usage: $argv0 \[-autoenable\] \[-noenable\] \[-c command\] \
 \[-Evar=x\] \[-e enable-password\] \[-f cloginrc-file\] \[-p user-password\] \
@@ -74,28 +77,18 @@ if {[ info exists env(CISCO_USER) ] } {
     regexp {\(([^)]*)} "$reason" junk default_user
 }
 
-# open a log file, and log the user and options
-# set log_file /var/local/log/clogin2.log
-# if [ catch {set log_fd [open $log_file a+]} reason ] {
-#    send_user "\nError unable to open log file $log_file: $reason\n"
-#    exit 1
-# }
+set log_entry "\[$default_user\] invoked clogin"
 
-# set log_entry [clock format [clock seconds] -format {%b %d %H:%M}]
-# append log_entry " clogin2: User $default_user ran clogin2"
+if { $::argc > 0 } {
+  set options $::argv
+  foreach arg $::argv {
+    append log_entry [format " %s" $arg]
+  }
+}
 
-# if { $::argc > 0 } {
-#   set options $::argv
-#   foreach arg $::argv {
-#     append log_entry " $arg"
-#   }
-# }
-
-# if [ catch { puts $log_fd $log_entry } reason ] {
-#    send_user "\nError unable to write to log file $log_file: $reason\n"
-#    send_user "log_entry: $log_entry\n"
-#    exit 1
-# }
+if {[catch {syslog -ident clogin -facility daemon info "$log_entry"}]} {
+    exit 1
+}
 
 
 # Sometimes routers take awhile to answer (the default is 10 sec)
