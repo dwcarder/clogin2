@@ -518,11 +518,9 @@ proc run_commands { prompt command } {
             send "term pager 0\r"
         } elseif [ regexp -- ".* Main\#" "$prompt" ] {
             send "\r"
-        } elseif [ regexp -- "^rx-.*" "$prompt" ] {
-            send "term length 0\r"
-            send "term width 0\r"
         } else {
             send "term length 0\r"
+            send "term width 0\r"
         }
         # simply truncating prompt and adding .* fails after the config
         # portion has been done:
