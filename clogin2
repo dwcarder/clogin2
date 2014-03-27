@@ -564,8 +564,14 @@ proc run_commands { prompt command router } {
         for {set i 0} {$i < $num_commands} { incr i} {
             send "[subst -nocommands [lindex $commands $i]]\r"
             expect {
-                -re "\!\!"			{ exp_continue }
-                -re "\#\#"			{ exp_continue }
+                -re "\!\!"			{
+                    send_user -- "$expect_out(buffer)"
+                    exp_continue
+                }
+                -re "\#\#"			{
+                    send_user -- "$expect_out(buffer)"
+                    exp_continue
+                }
                 # added 6/1/04 to catch !!! or ### coming back from command.
                 # which was causing clogin to time out.
                 # for some reason I added send "y\n" which seems wrong
@@ -633,8 +639,14 @@ proc run_commands { prompt command router } {
         # global switch in the config.
         send "[subst -nocommands $command]\r"
         expect {
-            -re "\!\!"   { exp_continue }
-            -re "\#\#"	  { exp_continue }
+            -re "\!\!"   {
+                send_user -- "$expect_out(buffer)"
+                exp_continue
+            }
+            -re "\#\#"	  {
+                send_user -- "$expect_out(buffer)"
+                exp_continue
+            }
             # added 6/1/04 to catch !!! or ### coming back from command.
             # which was causing clogin to time out.
             # changed "y\n" to "y\r" on 9/14/04
@@ -855,6 +867,9 @@ foreach router [lrange $argv $i end] {
         if [ regexp -- ".*> .*enable" "$prompt" ] {
             send "set length 0\r"
             send "set logging session disable\r"
+        } elseif [ regexp -- "^rx-.*" "$router" ] {
+            send "term length 0\r"
+            send "term width 0\r"
         } else {
             send "term length 0\r"
             send "term width 0\r"
