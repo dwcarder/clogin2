@@ -498,7 +498,7 @@ proc do_enable { enauser enapasswd } {
 }
 
 # Run commands given on the command line.
-proc run_commands { prompt command } {
+proc run_commands { prompt command router } {
     global in_proc platform
     set in_proc 1
 
@@ -518,9 +518,11 @@ proc run_commands { prompt command } {
             send "term pager 0\r"
         } elseif [ regexp -- ".* Main\#" "$prompt" ] {
             send "\r"
-        } else {
+        } elseif [ regexp -- "^rx-.*" "$router" ] {
             send "term length 0\r"
             send "term width 0\r"
+        } else {
+            send "term length 0\r"
         }
         # simply truncating prompt and adding .* fails after the config
         # portion has been done:
@@ -844,7 +846,7 @@ foreach router [lrange $argv $i end] {
     }
 
     if { $do_command } {
-        if {[run_commands $prompt $command]} {
+        if {[run_commands $prompt $command $router]} {
             continue
         }
     } elseif { $do_script } {
