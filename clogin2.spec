@@ -5,7 +5,7 @@ Summary: 	multi-vendor login tool, forked from RANCID
 
 Group:          Applications/Internet
 License:        BSD
-URL:            none
+URL:            https://github.com/dwcarder/clogin2
 Source0:        %{name}-%{version}.tar.gz
 BuildArch: 	noarch
 
@@ -27,6 +27,7 @@ mkdir -p %{buildroot}/usr/local/ns/bin
 mkdir -p %{buildroot}/usr/local/ns/share/clogin2/doc
 cp clogin2 %{buildroot}/usr/local/ns/bin
 cp cloginrc %{buildroot}/usr/local/ns/share/clogin2/doc
+cp LICENSE %{buildroot}/usr/local/ns/share/clogin2/doc
 
 %clean
 rm -rf %{buildroot}
@@ -39,6 +40,7 @@ ln -s /usr/local/ns/bin/clogin2 /usr/local/ns/bin/clogin
 /usr/local/ns/bin/clogin2
 %defattr(644,root,root,-)
 /usr/local/ns/share/clogin2/doc/cloginrc
+/usr/local/ns/share/clogin2/doc/LICENSE
 
 
 %changelog
