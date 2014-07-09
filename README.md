@@ -22,13 +22,13 @@ There are a few options:
 * Edit the included spec file, build and install an RPM to your liking:
 ```bash
 git clone http://github.com/dwcarder/clogin2.git
-mv clogin2 clogin2-1.0
-tar -cf clogin2-1.0.tar clogin2-1.0
-gzip clogin2-1.0.tar
-cp clogin2-1.0.tar.gz ~/rpmbuild/SOURCES
+mv clogin2 clogin2-1.1
+tar -cf clogin2-1.1.tar clogin2-1.1
+gzip clogin2-1.1.tar
+cp clogin2-1.1.tar.gz ~/rpmbuild/SOURCES
 cd ~/rpmbuild/SOURCES
-rpmbuild -tb clogin2-1.0.tar.gz
-rpm -Uvh ~/rpmbuild/RPMS/noarch/clogin2-1.0-1.noarch.rpm
+rpmbuild -tb clogin2-1.1.tar.gz
+rpm -Uvh ~/rpmbuild/RPMS/noarch/clogin2-1.1-1.noarch.rpm
 ```
 
 ## Usage:

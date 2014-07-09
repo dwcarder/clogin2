@@ -1,5 +1,5 @@
 Name: 		clogin2         
-Version: 	1.0
+Version: 	1.1
 Release:        1
 Summary: 	multi-vendor login tool, forked from RANCID
 
@@ -44,5 +44,5 @@ ln -s /usr/local/ns/bin/clogin2 /usr/local/ns/bin/clogin
 
 
 %changelog
-*Wed Jul 3 2014 <dwcarder@wisc.edu> 1
---Initial Packaging Build.
+*Wed Jul 3 2014 <dwcarder@wisc.edu> 1.0-1 --Initial Packaging Build.
+*Wed Jul 9 2014 <dwcarder@wisc.edu> 1.1-1 --Fixes to tcl-syslog
