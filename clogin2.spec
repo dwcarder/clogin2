@@ -9,7 +9,7 @@ URL:            https://github.com/dwcarder/clogin2
 Source0:        %{name}-%{version}.tar.gz
 BuildArch: 	noarch
 
-Requires:       expect openssh
+Requires:       expect openssh tcl-syslog
 Conflicts:	rancid
 
 %description

@@ -32,6 +32,7 @@
 # exp_internal 1
 
 #--- packages
+load /usr/lib64/syslog1.1/libsyslog1.1.so
 package require syslog
 
 # Usage line
